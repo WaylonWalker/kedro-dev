@@ -57,8 +57,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'gatsby-default-mdx-basic',
-        short_name: 'starter',
+        name: 'kedro-dev',
+        short_name: 'kedro-dev',
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',
