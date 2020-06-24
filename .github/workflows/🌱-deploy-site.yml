@@ -62,9 +62,12 @@ jobs:
       #   env:
       #     GITHUB_PAT: ${{ secrets.GH_PAT }}
 
-      - uses: jsmrcaga/action-netlify-deploy@master
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.0
         with:
+          publish-dir: "./public"
+          production-branch: master
+          deploy-message: "Deploy from GitHub Actions"
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
