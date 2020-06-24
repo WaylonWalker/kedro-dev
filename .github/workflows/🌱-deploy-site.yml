@@ -17,8 +17,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: npm cache directory
         id: npm-cache-directory
-
-      - run: echo "::set-output name=dir::$(npm config get cache)"
+        run: echo "::set-output name=dir::$(npm config get cache)"
 
       - name: Cache node modules
         uses: actions/cache@v2
