@@ -15,36 +15,54 @@ jobs:
         with:
           publishBranch: "public" # Not required, default publishing branch is master
           token: ${{ secrets.GH_PAT }}
-      # - name: Cache node modules
-      #   uses: actions/cache@v2
-      #   env:
-      #     cache-name: 🗳 cache-node-modules
-      #   with:
-      #     path: |
-      #       ~/.npm
-      #       **/node_nodules
-      #       .cache
-      #       public
-      #     key: npm-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       npm-${{ runner.os }}-build-${{ env.cache-name }}-
-      #       npm-${{ runner.os }}-build-
-      #       npm-${{ runner.os }}-
-      # - name: ⚡ Use Node.js 12.x
-      #   uses: actions/setup-node@v2-beta
-      #   with:
-      #     node-version: 12.x
-      #     registry-url: https://npm.pkg.github.com/
-      #     scope: "@ownername"
-      # - uses: bahmutov/npm-install@v1
-      # - name: 📦 install npm dependencies
-      #   run: npm i -g gatsby-cli # && npm install --production
-      # - name: 🔨 gatsby build
-      #   run: npm run build
-      # - name: ✨ Deploy to gh-pages
-      #   uses: crazy-max/ghaction-github-pages@v1.3.0
-      #   with:
-      #     target_branch: gh-pages
-      #     build_dir: public
-      #   env:
-      #     GITHUB_PAT: ${{ secrets.GH_PAT }}
+      - name: npm cache directory
+        id: npm-cache-directory
+
+      - run: echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache-directory.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Cache gatsby cache directory
+        uses: actions/cache@v2
+        with:
+          path: .cache
+          key: ${{ runner.os }}-gatsby-cache-directory
+          restore-keys: |
+            ${{ runner.os }}-cache-directory
+
+      - name: Cache gatsby public directory
+        uses: actions/cache@v2
+        with:
+          path: public/
+          key: ${{ runner.os }}-gatsby-public-directory
+          restore-keys: |
+            ${{ runner.os }}-public-directory
+
+      - name: ⚡ Use Node.js 12.x
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@ownername"
+      - uses: bahmutov/npm-install@v1
+      - name: 📦 install npm dependencies
+        run: npm i -g gatsby-cli # && npm install --production
+      - name: 🔨 gatsby build
+        run: npm run build
+        env:
+          GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
+          NODE_ENV: production
+          ENVIRONMENT: ${{ contains(github.ref, 'master') && 'production' || 'staging'}}
+      - name: ✨ Deploy to gh-pages
+        uses: crazy-max/ghaction-github-pages@v1.3.0
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
