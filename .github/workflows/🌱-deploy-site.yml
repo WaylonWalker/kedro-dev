@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: xmflsct/action-publish-gatsby@v1 # Uses this action to run further steps
+      - uses: xmflsct/action-publish-gatsby@v1.0.0 # Uses this action to run further steps
         with:
           publishBranch: "public" # Not required, default publishing branch is master
           token: ${{ secrets.GH_PAT }}
