@@ -146,6 +146,7 @@ const DevTo = () => {
             <FadeIn delay={100}>
                 <div className="posts">
                     <h2><span className='count'>5</span> most Recent Articles on <a href='https://dev.to/t/kedro' title='kedro tag on DEV.to'>Dev.to</a></h2>
+                    <em>posted to the #kedro tag</em>
                     {data.map(post => <Post post={post} />)}
                 </div>
             </FadeIn>
