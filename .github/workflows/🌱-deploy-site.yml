@@ -46,8 +46,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@ownername"
       - uses: bahmutov/npm-install@v1
-      - name: 📦 install npm dependencies
-        run: npm i -g gatsby-cli # && npm install --production
+      # - name: 📦 install npm dependencies
+      #   run: npm i -g gatsby-cli # && npm install --production
       - name: 🔨 gatsby build
         run: npm run build
         env:
