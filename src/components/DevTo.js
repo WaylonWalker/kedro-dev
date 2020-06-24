@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const Styles = styled.div`
 /* max-width:800px; */
-margin: 1rem;
+margin: 3rem 0;
 .posts {
     display: flex;
     flex-direction: column;

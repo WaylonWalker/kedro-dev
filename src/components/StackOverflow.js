@@ -4,7 +4,7 @@ import FadeIn from 'src/components/FadeIn'
 import axios from 'axios'
 
 const Styles = styled.div`
-margin: 1rem;
+margin: 3rem 0;
 .posts {
     display: flex;
     flex-direction: column;
