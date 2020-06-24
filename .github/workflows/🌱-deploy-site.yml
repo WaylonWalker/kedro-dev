@@ -36,7 +36,7 @@ jobs:
       - name: 📦 install npm dependencies
         run: npm i -g gatsby-cli # && npm install --production
       - name: 🔨 gatsby build
-        run: gatsby build
+        run: npm run build
       - name: ✨ Deploy to gh-pages
         uses: crazy-max/ghaction-github-pages@v1.3.0
         with:
