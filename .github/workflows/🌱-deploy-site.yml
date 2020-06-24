@@ -34,8 +34,6 @@ jobs:
           scope: "@ownername"
       - name: 📦 install npm dependencies
         run: npm i -g gatsby-cli && npm install --production
-      - name: 🧹 gastby clean
-        run: gatsby clean
       - name: 🔨 gatsby build
         run: gatsby build
       - name: ✨ Deploy to gh-pages
