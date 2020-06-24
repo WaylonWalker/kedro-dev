@@ -4,9 +4,9 @@ name: 🌱 Deploy Site
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,25 +17,39 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: ⚡ Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-        registry-url: https://npm.pkg.github.com/
-        scope: "@ownername"
-    - name: 📦 install npm dependencies
-      run: npm i -g gatsby-cli && npm install --production
-    - name: 🧹 gastby clean
-      run: gatsby clean
-    - name: 🔨 gatsby build
-      run: gatsby build
-    - name: ✨ Deploy to gh-pages
-      uses: crazy-max/ghaction-github-pages@v1.3.0
-      with:
-        target_branch: gh-pages
-        build_dir: public
-      env:
-        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
-
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: 🗳 cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            **/node_nodules
+            .cache
+            public
+          key: npm-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-build-${{ env.cache-name }}-
+            npm-${{ runner.os }}-build-
+            npm-${{ runner.os }}-
+      - name: ⚡ Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@ownername"
+      - name: 📦 install npm dependencies
+        run: npm i -g gatsby-cli && npm install --production
+      - name: 🧹 gastby clean
+        run: gatsby clean
+      - name: 🔨 gatsby build
+        run: gatsby build
+      - name: ✨ Deploy to gh-pages
+        uses: crazy-max/ghaction-github-pages@v1.3.0
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
