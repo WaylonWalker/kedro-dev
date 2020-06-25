@@ -128,6 +128,7 @@ const StackOverflow = () => {
             <FadeIn delay={100}>
                 <div className="posts">
                     <h2><span className='count'>5</span> most Recent Questions from <a href='https://stackoverflow.com/questions/tagged/kedro' title='kedro tag on stack overflow'>Stack Overflow</a></h2>
+                    <em>posted to the [kedro] tag</em>
                     {data.map(post => <Post post={post} />)}
                 </div>
             </FadeIn>
