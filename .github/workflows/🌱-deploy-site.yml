@@ -31,13 +31,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
 
-      - name: Cache gatsby cache directory
-        uses: actions/cache@v2
-        with:
-          path: .cache
-          key: ${{ runner.os }}-gatsby-cache-directory
-          restore-keys: |
-            ${{ runner.os }}-cache-directory
+      # - name: Cache gatsby cache directory
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: .cache
+      #     key: ${{ runner.os }}-gatsby-cache-directory
+      #     restore-keys: |
+      #       ${{ runner.os }}-cache-directory
 
       # - name: Cache gatsby public directory
       #   uses: actions/cache@v2
