@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "author": "Waylon Walker <waylon@waylonwalker.com>",
     "dependencies": {
-        "@mdx-js/mdx": "^1.6.5",
+        "@mdx-js/mdx": "^1.6.22",
         "@mdx-js/react": "^1.6.5",
         "@quantumblack/kedro-ui": "^1.1.2",
         "axios": "^0.19.2",
